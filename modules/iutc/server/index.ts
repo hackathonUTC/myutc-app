@@ -30,7 +30,7 @@ var cas = new CASAuthentication({
 app.get('/', cas.bounce);
 app.use(morgan("combined"));
 app.use(cookieParser("azerty"));
-app.use("/", serveStatic('./public', {maxAge: 1}));
+app.use("/", serveStatic(__dirname + '/public'));
 
 let http = app.listen(3000, function(){
     console.log("Server listening on port 3000");

@@ -33,7 +33,7 @@ gulp.task('jade', function(){
     .pipe(jade({
         pretty: true
     }))
-    .pipe(gulp.dest("./public/"));
+    .pipe(gulp.dest("./dist/public/"));
 });
 
 gulp.task('bootstrap-css', function(){
