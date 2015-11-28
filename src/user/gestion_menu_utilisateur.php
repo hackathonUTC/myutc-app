@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Gestion du menu</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+	</head>
+	<body>
+		<h1>Gestion de votre menu</h1>
+		<h2>Les modules que vous n'utilisez pas encore</h2>
+		<table>
+			<tr>
+				<th>Module</th>
+				<th>Description</th>
+				<th>Intégrer</th>
+			</tr>
+			<?php
+			$user = "tdancois";
+			$SQL = "
+			SELECT mod.titre, mod.description, user.login FROM module AS mod, menu_utilisateur AS men, utilisateur AS user
+			WHERE men.utilisateur <> '".$user."'
+			AND mod.id = men.module
+			AND user.login = men.utilisateur
+			";
+			
+			include "../../class/connection.php";
+			
+			$conn = new connection();
+			$conn->Connect();
+			
+			$Query = pg_query($conn->Conn, $sql);
+			
+			while ($vResult = pg_fetch_array($Query, null, PGSQL_ASSOC))
+			{
+			?>
+				<tr>
+					<td><?php echo $vResult['mod.titre'];?></td>
+					<td><?php echo $vResult['mod.description'];?></td>
+					<td><a href="ajout_module_utilisateur.php?utilisateur_id=<?php echo $vResult['user.login'];?>">&otimes;</a></td>
+				</tr>
+			<?php
+			}
+			$conn->Close();
+			?>
+		</table>
+		<?php echo $SQL;?>
+		<h2>Modifier la priorité des modules</h2>
+		
+		
+		
+	</body>
+</html>

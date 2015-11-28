@@ -25,23 +25,25 @@
 			</tr>
 		
 			<?php
+			$sql = "SELECT * FROM module";
+			
 			include "../../class/connection.php";
 			
 			$conn = new connection();
 			$conn->Connect();
 			
-			$sql = "SELECT * FROM module";
-			$Query=pg_query($conn->Conn, $sql);
 			
-			while ($vResult = pg_fetch_array($Query, null, PGSQL_ASSOC))
+			$response = $conn->Conn->query($sql);
+			
+			while ($vResult = $response->fetch())
 			{
 			?>
 				<tr>
 					<td><?php echo $vResult['titre'];?></td>
 					<td><?php echo $vResult['description'];?></td>
 					<td><?php echo $vResult['lien'];?></td>
-					<td><a href="modifier_module?id=<?php echo $vResult['id'];?>">&nabla;</a></td>
-					<td><a href="supprimer_module?id=<?php echo $vResult['id'];?>&confirmer=false">&otimes;</a></td>
+					<td><a href="modifier_module.php?id=<?php echo $vResult['id'];?>">&nabla;</a></td>
+					<td><a href="supprimer_module.php?id=<?php echo $vResult['id'];?>&confirmer=false">&otimes;</a></td>
 				</tr>
 			<?php
 			}

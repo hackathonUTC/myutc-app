@@ -24,13 +24,14 @@
 				echo $SQL;
 				
 				include "../../class/connection.php";
-				
+			
 				$conn = new connection();
 				$conn->Connect();
 				
-				$Query=pg_query($conn->Conn, $SQL);
 				
-				if ($Query == false)
+				$response = $conn->Conn->query($SQL);
+				
+				if ($response == false)
 				{
 					echo "<p>Problème lors de la suppression.</p>";
 				}

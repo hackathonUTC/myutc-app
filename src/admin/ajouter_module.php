@@ -44,7 +44,7 @@
 				$conn = new connection();
 				$conn->Connect();
 				
-				$Query=pg_query($conn->Conn, $SQL);
+				$response = $conn->Conn->query($SQL);
 			}
 		}
 		?>
