@@ -2,6 +2,7 @@ var gulp = require("gulp");
 var ts = require("gulp-typescript");
 var gulpify = require("gulpify");
 var rename = require("gulp-rename");
+var jade = require('gulp-jade');
 
 var tsProject = ts.createProject('server/tsconfig.json')
 
@@ -27,8 +28,32 @@ gulp.task('public_files', function(){
     return gulp.src('public/**/*').pipe(gulp.dest("dist/public"));
 });
 
-gulp.task("client", ["public_files", "browserify"], function(){});
+gulp.task('jade', function(){
+    gulp.src("templates/*.jade")
+    .pipe(jade({
+        pretty: true
+    }))
+    .pipe(gulp.dest("./public/"));
+});
 
-gulp.task('default', ['server', 'client'], function() {
+gulp.task('bootstrap-css', function(){
+    return gulp.src("node_modules/bootstrap/dist/css/*.css")
+    .pipe(gulp.dest('dist/public/css'));
+});
+
+gulp.task('bootstrap-js', function(){
+    return gulp.src("node_modules/bootstrap/dist/js/*.js")
+    .pipe(gulp.dest('dist/public/js'));
+});
+
+gulp.task('bootstrap', ['bootstrap-js', 'bootstrap-css']);
+
+gulp.task("client", ["public_files", "browserify", "jade", "bootstrap"], function(){});
+
+gulp.task("watch", function(){
+    gulp.watch("templates/*.jade", ["jade"]);
+})
+
+gulp.task('default', ['server', 'client', 'watch'], function() {
 
 })
