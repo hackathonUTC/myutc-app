@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "out": "server.js",
         "module": "commonjs",
         "moduleResolution": "node",
         "isolatedModules": false,
