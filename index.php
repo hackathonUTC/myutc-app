@@ -11,15 +11,17 @@
 		<h2>Vos tuiles:</h2>
 		
 		<?php
+		$sql = "SELECT * FROM module";
+		
 		include "class/connection.php";
 		
 		$conn = new connection();
 		$conn->Connect();
 		
-		$sql = "SELECT * FROM module";
-		$Query=pg_query($conn->Conn, $sql);
 		
-		while ($vResult = pg_fetch_array($Query, null, PGSQL_ASSOC))
+		$response = $conn->Conn->query($sql);
+		
+		while ($vResult = $response->fetch())
 		{
 		?>
 			<pre>

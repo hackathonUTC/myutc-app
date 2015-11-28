@@ -4,26 +4,22 @@ class connection
 {
 
     public $Host;
-    public $Port;
+    //public $Port;
     public $Dbname;
     public $User;
     public $Password;
     public $Conn;
 
     function __construct () {
-        $this->Host="tuxa.sme.utc";
-        $this->Port="5432";
-        $this->Dbname="dbnf17a046";
-        $this->User="nf17a046";
-        $this->Password="5GBbtEgj";
+        $this->Host="mutusql03.evxonline.net";
+        //$this->Port="";
+        $this->Dbname="myutc";
+        $this->User="myutc";
+        $this->Password="Hackathon2015";
     }
 
     function Connect () {
-        $this->Conn = pg_connect("host=".$this->Host." port=".$this->Port." dbname=".$this->Dbname." user=".$this->User." password=".$this->Password) or die('Échec de la connexion : ' . pg_last_error());
-    }
-
-    function Close () {
-        pg_close($this->Conn);
+    	$this->Conn = new PDO("mysql:host=".$this->Host.";dbname=".$this->Dbname.";charset=utf8", $this->User, $this->Password);
     }
 
     /* Fonction permettant de supprimer un tutoriel de la BD en fonction de son titre
