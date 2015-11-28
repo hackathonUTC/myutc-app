@@ -50,6 +50,10 @@ gulp.task('bootstrap', ['bootstrap-js', 'bootstrap-css']);
 
 gulp.task("client", ["public_files", "browserify", "jade", "bootstrap"], function(){});
 
-gulp.task('default', ['server', 'client'], function() {
+gulp.task("watch", function(){
+    gulp.watch("templates/*.jade", ["jade"]);
+})
+
+gulp.task('default', ['server', 'client', 'watch'], function() {
 
 })
