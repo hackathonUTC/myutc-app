@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "target": "es5",
+        "out": "server.js",
         "module": "commonjs",
         "moduleResolution": "node",
         "isolatedModules": false,
@@ -22,6 +23,8 @@
     ],
     "files": [
         "index.ts",
+        "Salon.ts",
+        "User.ts",
         "typings/express-session/express-session.d.ts",
         "typings/express/express.d.ts",
         "typings/mime/mime.d.ts",
@@ -32,6 +35,6 @@
         "typings/tsd.d.ts"
     ],
     "atom": {
-        "rewriteTsconfig": true
+        "rewriteTsconfig": false
     }
 }
