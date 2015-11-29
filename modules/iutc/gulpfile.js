@@ -52,6 +52,7 @@ gulp.task("client", ["public_files", "browserify", "jade", "bootstrap"], functio
 
 gulp.task("watch", function(){
     gulp.watch("templates/*.jade", ["jade"]);
+    gulp.watch("client/**/*.ts", ["browserify"]);
 })
 
 gulp.task('default', ['server', 'client', 'watch'], function() {

@@ -27,7 +27,10 @@ var cas = new CASAuthentication({
     session_info: 'cas_info'
 
 });
-app.get('/', cas.bounce);
+app.get('/', cas.bounce, function(req, res, next){
+    console.dir(req.session['cas_info']);
+    next();
+});
 app.use(morgan("combined"));
 app.use(cookieParser("azerty"));
 app.use("/", serveStatic(__dirname + '/public'));
@@ -43,4 +46,12 @@ io.on("connection", function(socket){
     socket.on("disconnect", function(){
         console.log("One client disconnect");
     });
+
+    socket.on("chat-msg", function(msg){
+        console.dir(msg);
+
+        io.emit("chat-msg", {author: "Antoine Wacheux", text: msg, date: Date.now()});
+    });
+
+    console.dir(socket.client.request.session);
 });
