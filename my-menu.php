@@ -22,11 +22,15 @@ include "class/connection.php";
 
 	echo 'Vous êtes connecté avec le login : '. phpCAS::getUser().'<br>';
 
+	echo "<pre>";
 	var_dump(get_user_modules(phpCAS::getUser()));
 
+	?>
 
 
 
+
+  <?php
 	function get_user_modules($login) {
 		$sql = "SELECT * 
 				FROM module INNER JOIN menu_utilisateur 
@@ -42,6 +46,7 @@ include "class/connection.php";
 			$module[titre] = $vResult['titre'];
 			$module[description] = $vResult['description'];
 			$module[lien] = $vResult['lien'];
+			$module[id] = $vResult['id'];
 			$retour[] = $module;
 		}
 		return $retour;
