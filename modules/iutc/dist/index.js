@@ -3,6 +3,7 @@ var morgan = require("morgan");
 var socketio = require("socket.io");
 var serveStatic = require("serve-static");
 var cookieParser = require("cookie-parser");
+var cookie = require("cookie");
 var session = require('express-session');
 var CASAuthentication = require('cas-authentication');
 var app = express();
@@ -14,13 +15,15 @@ app.use(session({
 app.disable('etag');
 var cas = new CASAuthentication({
     cas_url: 'https://cas.utc.fr/cas',
-    service_url: 'http://localhost:3000',
+    service_url: 'http://172.25.17.89:3000',
     cas_version: '2.0',
     session_name: 'cas_user',
     session_info: 'cas_info'
 });
 app.get('/', cas.bounce, function (req, res, next) {
-    console.dir(req.session['cas_info']);
+    res.cookie("nom", req.session['cas_info']['sn']);
+    res.cookie("prenom", req.session['cas_info']['givenname']);
+    res.cookie("login", req.session['cas_user']);
     next();
 });
 app.use(morgan("combined"));
@@ -31,13 +34,14 @@ var http = app.listen(3000, function () {
 });
 var io = socketio(http);
 io.on("connection", function (socket) {
-    console.log("Nouvelle connexion");
+    socket.client.request.cookie = cookie.parse(socket.client.request.headers.cookie);
+    var nom = socket.client.request.cookie.nom;
+    var prenom = socket.client.request.cookie.prenom;
     socket.on("disconnect", function () {
         console.log("One client disconnect");
     });
     socket.on("chat-msg", function (msg) {
         console.dir(msg);
-        io.emit("chat-msg", { author: "Antoine Wacheux", text: msg, date: Date.now() });
+        io.emit("chat-msg", { author: prenom + ' ' + nom, text: msg, date: Date.now() });
     });
-    console.dir(socket.client.request.session);
 });
