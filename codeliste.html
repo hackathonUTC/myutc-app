@@ -7,6 +7,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <style>
+  .table, .th, .td {
+    border: 0 px;
+}
     .navbar-brand {
       font-family: arial;
       font-weight: bolder;
@@ -18,10 +21,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#FACC2E">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" style="color:#fff">MYUTC</a>
-    </div>
-      <div class="col-xs-3">
-    <button type="button" class="btn btn-default" style="color:#fff; background-color:#61380B; border-color:#FACC2E">Retour</button>
+      <a class="navbar-brand" style="color:#fff;text-align:left" href="index.php" class="btn btn-info" role="button">MYUTC</a>
     </div>
     <div class="col-xs-3"><a src="" type="button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:#61380B; border-color:#FACC2E">Login
         <span class="caret"></span>
@@ -33,26 +33,102 @@
   </div>
  </div>
 </nav>
-<br>
-<br>
-<br>
-<div class="container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+
+////////
+
+<?php echo $module['img']; ?>
+
+
+display_modules($modules);
+
+	function display_modules($modules) {
+ ?>
+ <br>
+ <br>
+ <br>
+ <div class="container">
+   <table class="table table-striped">
+     <thead>
+       <tr>
+         <th></th>
+       </tr>
+     </thead>
+     <tbody>
+			 <tr>
+ <?php
+ $n=count($modules);
+ $i=0;
+ while($i<$n){
+	echo 'coucou'; //write_module(modules[$i]);
+ $i++;
+ } ?>
+ </table>
+ <?php
+ 
+	function write_module($module){
+		?>
+		<tr>
+			<td>
+				<img src="https://i.gyazo.com/592adf3420b792e26e74c16b600b113c.png" class="img-rounded" width=60% style="max-width:450px; min-width:100px" height=width>
+			</td>
+			<td>
+				<table style="width:100%">
+						<thead>
+							<tr>
+								<th><?php echo $module['titre']; ?></th>
+								<?php
+									if ($module['isAdded']==0) {
+									?>
+									<th><button type="button" class="btn btn-success">Ajouter</button></th>
+
+							<?php
+								}
+							else { ?>
+								<th><button type="button" class="btn btn-danger">Supprimer</button></th>
+							<?php } ?>
+							</tr>
+						</thead>
+					</table>
+ }
+
+//////////////
+
       <tr>
         <td><img src="https://i.gyazo.com/592adf3420b792e26e74c16b600b113c.png" class="img-rounded" width=60% style="max-width:450px; min-width:100px" height=width></td>
-        <td style="text-align:left">asso1</td>
-        <td><button type="button" class="btn btn-success">ajouter</button></td>
+        <td>
+          <table style="width:100%">
+              <thead>
+                <tr>
+                  <th>NomAsso 1</th>
+                  <th><button type="button" class="btn btn-success">ajouter</button></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Description</td>
+                </tr>
+              </tbody>
+          </table>
+        </td>
+        <td></td>
       </tr>
       <tr>
         <td><img src="https://i.gyazo.com/592adf3420b792e26e74c16b600b113c.png" class="img-rounded" width=60% style="max-width:450px; min-width:100px" height=width></td>
-        <td style="text-align:left">asso 2</td>
-        <td><button type="button" class="btn btn-success">ajouter</button></td>
+        <td>
+          <table style="width:100%">
+              <thead>
+                <tr>
+                  <th>NomAsso 2</th>
+                  <th><button type="button" class="btn btn-success">ajouter</button></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Description</td>
+                </tr>
+              </tbody>
+          </table>
+        </td>
       </tr>
     </tbody>
   </table>
