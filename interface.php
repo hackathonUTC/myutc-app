@@ -1,3 +1,5 @@
+<?php
+?>
 <html>
 <head>
   <title>My UTC</title>
@@ -24,7 +26,8 @@
       padding-top: 150px;
   }
 .navbar-brand {
-  font-family: arial black; aharoni;
+  font-family: Arial;
+  font-weight: bolder;
   font-size: 30;
 }
   </style>
@@ -50,20 +53,52 @@
 </div>
 </nav>
 <div class="container-fluid">
+  <?php
+
+  include "check-cas-connection.php";
+  include "class/connection.php";
+
+  include "includes/functions.php";
+  $result=get_user_modules(phpCAS::getUser());
+  //echo'<pre>';
+  //var_dump ($result);
+  //echo'</pre>';
+  $i=0;
+  echo"$i";
+  $j=0;
+  echo"$j";
+  $conteur=count($result);
+  echo"$conteur";
+  ?>
   <table cellpadding=2 cellspacing=2>
     <tbody>
       <tr>
-        <td><center><img src="http://www.apptamin.com/wp-content/uploads/2012/08/iOS-Icon.png" class="img-rounded" width="90%" height="90%"></center></td>
-        <td><center><img src="http://www.apptamin.com/wp-content/uploads/2012/08/iOS-Icon.png" class="img-rounded" width="90%" height="90%"></center></td>
-      </tr>
-      <tr>
-        <td><center><img src="http://www.apptamin.com/wp-content/uploads/2012/08/iOS-Icon.png" class="img-rounded" width="90%" height="90%"></center></td>
-        <td><center><img src="http://www.apptamin.com/wp-content/uploads/2012/08/iOS-Icon.png" class="img-rounded" width="90%" height="90%"></center></td>
+        <?php
+          while($i<$conteur)
+            {
+              //var_dump($result[$i]);
+              $lien=$result[$i]['lien'];
+              //echo'<pre>';
+              //var_dump($lien);
+              //echo'</pre>';
+              if ($j<=2)
+                {
+                  echo"<td><center>$lien</center></td>";
+                }
+              else
+                {
+                  echo"</tr><tr><td><center>$lien</center></td>";
+                  $j=0;
+                }
+              $i=$i+1;
+              //echo"$i";
+              $j=$j+1;
+              //echo"$j";
+            }
+        ?>
       </tr>
     </tbody>
   </table>
 </div>
-  </table>
-  </div>
 </body>
 </html>

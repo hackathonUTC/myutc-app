@@ -6,52 +6,50 @@
 		<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
 	</head>
 	<body>
-
+	
 		<h1>Ajouter module</h1>
-
+		
 		<form action="ajouter_module.php" method="post">
 				<p>
 					Titre : <input type="text" name="titre"><br />
 					Description<br />
 					<textarea name="description" rows="2" cols="80"></textarea><br />
 					Lien <input type="text" name="lien"><br />
-					Lien d'hébergement d'une image vous représentant : <input type="text" name="img"><br />
 				</p>
 				<p>
-					<input type="submit" value="Envoyer">
+					<input type="submit" value="Envoyer">				
 				</p>
-
+		
 		</form>
-
+		
 		<?php
-		if ( isset($_POST['titre'], $_POST['description'], $_POST['lien'], $_POST['img']) )
+		if ( isset($_POST['titre'], $_POST['description'], $_POST['lien']) )
 		{
 			echo "<pre>";
 			print_r($_POST);
 			echo "</pre>";
-
+			
 			$titre = htmlspecialchars($_POST['titre']);
 			$description = htmlspecialchars($_POST['description']);
 			$lien = htmlspecialchars($_POST['lien']);
-			$img = htmlspecialchars($_POST['img']);
-
-
+			
+			
 			if (filter_var($lien, FILTER_VALIDATE_URL)) {
 			  //lien est une URL
-
-				$SQL = "INSERT INTO module (titre, description, lien, img) VALUES ('" . $titre . "', '" . $description . "', '" . $lien . "', '" . $img . "')";
-
+			  
+				$SQL = "INSERT INTO module (titre, description, lien) VALUES ('" . $titre . "', '" . $description . "', '" . $lien . "')";			  
+			
 				include "../../class/connection.php";
-
+				
 				$conn = new connection();
 				$conn->Connect();
-
+				
 				$response = $conn->Conn->query($SQL);
 			}
 		}
 		?>
-
+		
 		<a href="./">Retour accueil</a>
-
+	
 	</body>
 </html>
